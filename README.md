@@ -15,7 +15,7 @@ It does not install the OpenWRT `.ipk`/`.apk` package and does not touch the `op
 On the router:
 
 ```sh
-wget -O /tmp/install.sh https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/install.sh
+wget -O /tmp/install.sh https://raw.githubusercontent.com/lituslitus-cyber/sing-box-extended_naive/main/install.sh
 sh /tmp/install.sh
 ```
 

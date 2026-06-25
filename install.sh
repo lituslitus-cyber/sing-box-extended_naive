@@ -72,12 +72,7 @@ rollback() {
   log "Rolling back files from $BACKUP_DIR."
   service "$SERVICE_NAME" stop >/dev/null 2>&1 || true
 
-  if restore_latest_file "sing-box.before.*" "$DEST_FILE"; then
-    chmod +x "$DEST_FILE" 2>/dev/null || true
-    ok "Restored $DEST_FILE"
-  else
-    warn "No sing-box backup found."
-  fi
+  log "Rollback sing-box пропущен (резервная копия не создаётся)."
 
   if [ -f "$FACADE_FILE" ]; then
     if restore_latest_file "sing_box_config_facade.sh.before.*" "$FACADE_FILE"; then
@@ -224,14 +219,7 @@ rm -rf "$WORK_DIR"
 mkdir -p "$WORK_DIR" || fail "Не удалось создать $WORK_DIR."
 cd "$WORK_DIR" || fail "Не удалось перейти в $WORK_DIR."
 
-TS="$(date +%Y%m%d_%H%M%S)"
-mkdir -p "$BACKUP_DIR" || fail "Не удалось создать $BACKUP_DIR."
-if [ -e "$DEST_FILE" ]; then
-  cp -a "$DEST_FILE" "$BACKUP_DIR/sing-box.before.$TS" || fail "Не удалось сохранить backup $DEST_FILE."
-  ok "Backup saved: $BACKUP_DIR/sing-box.before.$TS"
-else
-  warn "$DEST_FILE not found before install; sing-box rollback backup skipped."
-fi
+log "Пропускаю создание резервной копии sing-box."
 
 log "Скачиваю $DOWNLOAD_URL"
 $DOWNLOAD "$ARCHIVE_NAME" "$DOWNLOAD_URL" || fail "Не удалось скачать sing-box-extended."
